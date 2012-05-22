@@ -1,4 +1,4 @@
-package com.alex.wang.addressbook;
+package com.alex.wang.addressbook.entity;
 
 public class UserInfo {
 	private String name;
