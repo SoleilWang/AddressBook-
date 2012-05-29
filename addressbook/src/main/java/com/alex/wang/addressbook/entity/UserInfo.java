@@ -35,6 +35,10 @@ public class UserInfo {
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
+	public String toString(){
+		return new StringBuilder().append("[ Name: ").append(name).append(" ,Address: ")
+				.append(address).append(" , PhoneNum: ").append(phoneNum).append(" ]").toString();			
+	}
 
 	@Override
 	public int hashCode() {
@@ -59,17 +63,17 @@ public class UserInfo {
 		if (address == null) {
 			if (other.address != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} else if (!address.equalsIgnoreCase(other.address))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!name.equalsIgnoreCase(other.name))
 			return false;
 		if (phoneNum == null) {
 			if (other.phoneNum != null)
 				return false;
-		} else if (!phoneNum.equals(other.phoneNum))
+		} else if (!phoneNum.equalsIgnoreCase(other.phoneNum))
 			return false;
 		return true;
 	}

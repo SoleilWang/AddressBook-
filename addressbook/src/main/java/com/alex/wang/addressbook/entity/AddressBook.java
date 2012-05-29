@@ -5,7 +5,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AddressBook {
+	private static final Logger logger = LoggerFactory.getLogger(AddressBook.class);
     private List<UserInfo> userList;
 
     public AddressBook() {
@@ -40,6 +44,9 @@ public class AddressBook {
             }
         }
         userList.removeAll(removeList);
+        for(UserInfo user: removeList){
+        	logger.info("remove" + user.toString() );
+        }
         return exist;
 
     }

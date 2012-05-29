@@ -65,5 +65,12 @@ public class AddressBookTest {
         users.add(new UserInfo("li yang", "tianshan road", "021-98764342"));
         assertEquals(users, book.search("021-98764342"));
     }
+    
+    @Test
+    public void testList() {
+        List<UserInfo> resultList = book.list();
+        assertEquals(resultList,book.getUserList());
+    }
+
 
 }

@@ -6,10 +6,15 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ConsoleUI implements UIInterface {
+    private static final Logger logger = LoggerFactory.getLogger(ConsoleUI.class);
     AddressBook book;
     private static Scanner in = new Scanner(System.in);
 
@@ -47,6 +52,7 @@ public class ConsoleUI implements UIInterface {
                 continue;
             }
             char c = readLine.toUpperCase().charAt(0);
+            logger.info("user input the Option:" + c);
             switch (c) {
             case 'A':
                 add();
@@ -59,6 +65,7 @@ public class ConsoleUI implements UIInterface {
                 break;
             case 'L':
                 list(book.list());
+                logger.info("list all users succesfully");
                 break;
             case 'Q':
                 if (quit())
@@ -67,51 +74,60 @@ public class ConsoleUI implements UIInterface {
             }
 
         }
-
     }
 
     private void add() {
 
         System.out.print("UserName:");
-        String name = in.nextLine();
+        String name = in.nextLine().trim();
         System.out.print("Address:");
-        String address = in.nextLine();
+        String address = in.nextLine().trim();
         String phoneNum;
         do {
             System.out.print("PhoneNumber:");
-            phoneNum = in.nextLine();
+            phoneNum = in.nextLine().trim();
         } while (!checkNumber(phoneNum));
 
         UserInfo info = new UserInfo(name, address, phoneNum);
-
+        logger.info("users want to add  user" + info.toString());
         boolean result = book.add(info);
         if (!result) {
             System.out.println("user " + name + " repeat");
+            logger.info("the user repeat,so not add");
         } else {
-            System.out.println("add user " + name + " successful");
+            System.out.println("add user " + name + " successfully");
+            logger.info("add user successfully");
         }
 
     }
 
     private void delete() {
         System.out.print("please input the username:");
-        String name = in.nextLine();
+        String name = in.nextLine().trim();
+        logger.info("users want to delete  user : " + name);
         boolean result = book.delete(name);
         if (!result) {
+
             System.out.println("not exist this user " + name);
+            logger.info("not exist this user: " + name + " so don't delete any uses");
         } else {
-            System.out.println("delete user " + name + " successful");
+
+            System.out.println("delete user " + name + " successfully");
+            logger.info("delete user " + name + " successfully");
         }
     }
 
     private void search() {
         System.out.print("please input the phoneNum:");
-        String phoneNum = in.nextLine();
+        String phoneNum = in.nextLine().trim();
+        logger.info("users want to search by   phoneNum : " + phoneNum);
         List<UserInfo> result = book.search(phoneNum);
         if (result.size() == 0) {
             System.out.println("not exist this phoneNum " + phoneNum);
+            logger.info("not exist this phoneNum " + phoneNum);
         } else {
             list(result);
+            logger.info("search successfully ,exist " + result.size() + " users");
         }
     }
 
@@ -133,9 +149,11 @@ public class ConsoleUI implements UIInterface {
         System.out.print("confirm exist(Y/N):");
         String readLine = in.nextLine().toUpperCase();
         if (readLine.equals("Y")) {
+            logger.info("users  confirm to quit ");
             return true;
         } else {
-            System.out.println(" we will continue");
+            System.out.println("we will continue");
+            logger.info("users not confirm to quit ,program continue");
             return false;
 
         }
@@ -148,7 +166,7 @@ public class ConsoleUI implements UIInterface {
         if (mt.find()) {
             return true;
         } else {
-            System.out.println("number pattern error,should be [3位数字]-[7位或者8位数字]的格式,如021-34322123");
+            System.out.println("number pattern error,should be ^[0-9]{3}[-][0-9]{7,8}$,like 021-34322123");
             return false;
         }
 
