@@ -1,0 +1,4 @@
+/addressbook/target/
+/addressbook/.settings/
+*.log
+

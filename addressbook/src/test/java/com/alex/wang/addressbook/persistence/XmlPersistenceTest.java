@@ -37,14 +37,6 @@ public class XmlPersistenceTest {
     private static final String ADDR_IDENTIFY = "address";
     private static final String PHONENO_IDENTIFY = "phoneNumber";
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
-
     @Before
     public void setUp() throws Exception {
         book = new AddressBook();
@@ -83,9 +75,13 @@ public class XmlPersistenceTest {
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
+        File logFile = new File("address.log");
+        if(logFile.exists()){
+            logFile.delete();
+        }
     }
 
-    private static Element addElement(Document doc, Node parent, String tagName, String value) {
+    private  Element addElement(Document doc, Node parent, String tagName, String value) {
         Element e = doc.createElement(tagName);
         if (null != value) {
             e.setTextContent(value);
@@ -103,7 +99,6 @@ public class XmlPersistenceTest {
             readedbook = persistence.read();
             assertEquals(readedbook.getUserList(), book.getUserList());
         } catch (AddressBookException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -141,9 +136,9 @@ public class XmlPersistenceTest {
                 userList.add(newUser);
             }
             assertEquals(userList, book.getUserList());
+           
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

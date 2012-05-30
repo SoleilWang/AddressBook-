@@ -2,6 +2,7 @@ package com.alex.wang.addressbook.entity;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -24,6 +25,11 @@ public class AddressBookTest {
 
     @After
     public void tearDown() throws Exception {
+        //delete log file
+        File logFile = new File("address.log");
+        if(logFile.exists()){
+            logFile.delete();
+        }
     }
 
     @Test

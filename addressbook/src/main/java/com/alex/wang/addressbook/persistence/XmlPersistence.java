@@ -9,6 +9,7 @@ import com.alex.wang.addressbook.entity.UserInfo;
 import com.alex.wang.addressbook.exception.AddressBookException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -29,7 +30,7 @@ public class XmlPersistence implements PersistenceInterface {
 	private static final String ADDR_IDENTIFY = "address";
 	private static final String PHONENO_IDENTIFY = "phoneNumber";
     public XmlPersistence(){
-        
+        super();
     }
 	public AddressBook read() throws AddressBookException {
 	    
@@ -70,13 +71,13 @@ public class XmlPersistence implements PersistenceInterface {
 				logger.info("not exists" + XMLFILENAME+ "will auto create the file");
 			}
 		} catch (Exception e) {
-			logger.error("read book.xml error " + e.getMessage() );
+			logger.error("read book.xml error ",e );
 			throw new AddressBookException("read book.xml error", e);
 		}
 		return book;
 	}
 
-	private static Element addElement(Document doc, Node parent,
+	private  Element addElement(Document doc, Node parent,
 			String tagName, String value) {
 		Element e = doc.createElement(tagName);
 		if (null != value) {
@@ -88,7 +89,7 @@ public class XmlPersistence implements PersistenceInterface {
 		return e;
 	}
 
-	public void write(AddressBook book) throws AddressBookException {
+    public void write(AddressBook book) throws AddressBookException {
 		if (book != null) {
 			logger.info("write addressBook to " + XMLFILENAME + "........");
 			try {
@@ -110,14 +111,17 @@ public class XmlPersistence implements PersistenceInterface {
 					addElement(doc, userElement, PHONENO_IDENTIFY, phoneNumber);
 				}
 
-				TransformerFactory tFactory = TransformerFactory.newInstance();
-
+				
+               
 				File tmpFile = new File("temp.xml");
 				if (tmpFile.exists()) {
 					tmpFile.delete();
 					logger.info("remove original temp.xml successfully");
 				}
+				TransformerFactory tFactory = TransformerFactory.newInstance();
+				tFactory.setAttribute("indent-number", new Integer(2));
 				Transformer transformer = tFactory.newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 				DOMSource source = new DOMSource(doc);
 				StreamResult result = new StreamResult(tmpFile);
 				transformer.transform(source, result);
@@ -131,7 +135,7 @@ public class XmlPersistence implements PersistenceInterface {
 				logger.info("rename temp.xml to " +  XMLFILENAME + "successfully");
 				logger.info("finished writing xml file ");
 			} catch (Exception e) {
-				logger.error("write xml file error " + e.getMessage() );
+				logger.error("write xml file error ",e);
 				throw new AddressBookException("write xml file error", e);
 			}
 		}else{
@@ -139,19 +143,6 @@ public class XmlPersistence implements PersistenceInterface {
 		}
 	}
 
-	public void insert(UserInfo info) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void update(UserInfo info) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void delete(UserInfo info) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

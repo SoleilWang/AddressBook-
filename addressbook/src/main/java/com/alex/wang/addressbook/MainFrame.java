@@ -22,7 +22,7 @@ public class MainFrame {
      * @throws IOException
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
+       
 
         final PersistenceInterface perInstance = new XmlPersistence();
         final UIInterface gui = new ConsoleUI();
@@ -41,8 +41,7 @@ public class MainFrame {
                     System.out.println("ByeBye");
                     logger.info("program exit");
                 } catch (AddressBookException e) {
-                    // TODO Auto-generated catch block
-                    logger.info("program error" + e.getMessage());
+                    logger.info("program error" ,e);
                     System.out.println(e.getMessage());
                 }
             }
