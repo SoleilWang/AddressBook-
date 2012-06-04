@@ -1,4 +1,4 @@
-/addressbook/target/
-/addressbook/.settings/
+addressbook/target/
+addressbook/.settings/
 *.log
 
