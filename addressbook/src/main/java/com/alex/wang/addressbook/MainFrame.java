@@ -3,16 +3,14 @@ package com.alex.wang.addressbook;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.alex.wang.addressbook.ui.ConsoleUI;
+import com.alex.wang.addressbook.ui.UIInterface;
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.exception.AddressBookException;
 import com.alex.wang.addressbook.persistence.PersistenceInterface;
 import com.alex.wang.addressbook.persistence.XmlPersistence;
-import com.alex.wang.addressbook.ui.ConsoleUI;
-import com.alex.wang.addressbook.ui.UIInterface;
 
 public class MainFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
@@ -22,7 +20,6 @@ public class MainFrame {
      * @throws IOException
      */
     public static void main(String[] args) {
-       
 
         final PersistenceInterface perInstance = new XmlPersistence();
         final UIInterface gui = new ConsoleUI();
@@ -41,12 +38,13 @@ public class MainFrame {
                     System.out.println("ByeBye");
                     logger.info("program exit");
                 } catch (AddressBookException e) {
-                    logger.info("program error" ,e);
+                    logger.info("program error", e);
                     System.out.println(e.getMessage());
                 }
             }
         };
         exec.execute(run);
+        exec.shutdownNow();
     }
 
 }

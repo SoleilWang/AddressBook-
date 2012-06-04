@@ -1,28 +1,22 @@
 package com.alex.wang.addressbook.persistence;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ArrayList;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
 import com.alex.wang.addressbook.exception.AddressBookException;
@@ -76,12 +70,12 @@ public class XmlPersistenceTest {
             xmlFile.delete();
         }
         File logFile = new File("address.log");
-        if(logFile.exists()){
+        if (logFile.exists()) {
             logFile.delete();
         }
     }
 
-    private  Element addElement(Document doc, Node parent, String tagName, String value) {
+    private Element addElement(Document doc, Node parent, String tagName, String value) {
         Element e = doc.createElement(tagName);
         if (null != value) {
             e.setTextContent(value);
@@ -99,7 +93,46 @@ public class XmlPersistenceTest {
             readedbook = persistence.read();
             assertEquals(readedbook.getUserList(), book.getUserList());
         } catch (AddressBookException e) {
-            e.printStackTrace();
+
+        } finally {
+            File logFile = new File("address.log");
+            if (logFile.exists()) {
+                logFile.delete();
+            }
+        }
+
+    }
+
+    @Test(expected = AddressBookException.class)
+    public void testReadWrongFile() throws AddressBookException {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db;
+        try {
+            db = factory.newDocumentBuilder();
+            Document doc = db.parse(XMLFILENAME);
+            NodeList users = doc.getElementsByTagName("user");
+            Element user = (Element) users.item(0);
+            NodeList ftpnodes = user.getChildNodes();
+            for (int i = 0; i < ftpnodes.getLength(); i++) {
+                user.removeChild(ftpnodes.item(0));
+            }
+            File xmlFile = new File("book.xml");
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(xmlFile);
+            transformer.transform(source, result);
+            persistence.read();
+        } catch (AddressBookException e) {
+            throw e;
+        } catch (Exception ele) {
+            System.out.print(ele.getMessage());
+        } finally {
+            File logFile = new File("address.log");
+            if (logFile.exists()) {
+                logFile.delete();
+            }
         }
 
     }
@@ -136,10 +169,14 @@ public class XmlPersistenceTest {
                 userList.add(newUser);
             }
             assertEquals(userList, book.getUserList());
-           
 
         } catch (Exception e) {
-            e.printStackTrace();
+
+        } finally {
+            File logFile = new File("address.log");
+            if (logFile.exists()) {
+                logFile.delete();
+            }
         }
 
     }

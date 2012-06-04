@@ -1,81 +1,85 @@
 package com.alex.wang.addressbook.entity;
 
 public class UserInfo {
-	private String name;
-	private String address;
-	private String phoneNum;
+    private String name;
+    private String address;
+    private String phoneNum;
 
-	public UserInfo(String name, String address, String phoneNum) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.phoneNum = phoneNum;
-	}
+    public UserInfo() {
+        super();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public UserInfo(String name, String address, String phoneNum) {
+        super();
+        this.name = name;
+        this.address = address;
+        this.phoneNum = phoneNum;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getPhoneNum() {
-		return phoneNum;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
-	public String toString(){
-		return new StringBuilder().append("[ Name: ").append(name).append(" ,Address: ")
-				.append(address).append(" , PhoneNum: ").append(phoneNum).append(" ]").toString();			
-	}
+    public String getPhoneNum() {
+        return phoneNum;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((phoneNum == null) ? 0 : phoneNum.hashCode());
-		return result;
-	}
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserInfo other = (UserInfo) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equalsIgnoreCase(other.address))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equalsIgnoreCase(other.name))
-			return false;
-		if (phoneNum == null) {
-			if (other.phoneNum != null)
-				return false;
-		} else if (!phoneNum.equalsIgnoreCase(other.phoneNum))
-			return false;
-		return true;
-	}
+    public String toString() {
+        return new StringBuilder().append("[ Name: ").append(name).append(" ,Address: ").append(address).append(" , PhoneNum: ").append(phoneNum).append(" ]")
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((phoneNum == null) ? 0 : phoneNum.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserInfo other = (UserInfo) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equalsIgnoreCase(other.address))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equalsIgnoreCase(other.name))
+            return false;
+        if (phoneNum == null) {
+            if (other.phoneNum != null)
+                return false;
+        } else if (!phoneNum.equalsIgnoreCase(other.phoneNum))
+            return false;
+        return true;
+    }
 
 }

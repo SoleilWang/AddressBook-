@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
 
-
 public class ConsoleUI implements UIInterface {
     private static final Logger logger = LoggerFactory.getLogger(ConsoleUI.class);
-    AddressBook book;
+    private AddressBook book;
     private static Scanner in = new Scanner(System.in);
 
     public void registerBook(AddressBook book) {
@@ -32,6 +30,9 @@ public class ConsoleUI implements UIInterface {
         this.book = new AddressBook();
     }
 
+    /**
+     * 
+     */
     public void start() {
 
         System.out.println("************************************************************************");
@@ -46,7 +47,7 @@ public class ConsoleUI implements UIInterface {
 
             System.out.print("please input the option(A/D/S/L/Q):");
 
-            String readLine = in.nextLine();
+            String readLine = getCommand();
             if (readLine.length() != 1) {
                 System.out.print("input error,please input again");
                 continue;
@@ -72,20 +73,19 @@ public class ConsoleUI implements UIInterface {
                     return;
                 break;
             }
-
         }
     }
 
-    private void add() {
+    void add() {
 
         System.out.print("UserName:");
-        String name = in.nextLine().trim();
+        String name = getCommand();
         System.out.print("Address:");
-        String address = in.nextLine().trim();
+        String address = getCommand();
         String phoneNum;
         do {
             System.out.print("PhoneNumber:");
-            phoneNum = in.nextLine().trim();
+            phoneNum = getCommand();
         } while (!checkNumber(phoneNum));
 
         UserInfo info = new UserInfo(name, address, phoneNum);
@@ -101,9 +101,13 @@ public class ConsoleUI implements UIInterface {
 
     }
 
-    private void delete() {
+    public String getCommand() {
+        return in.nextLine().trim();
+    }
+
+    void delete() {
         System.out.print("please input the username:");
-        String name = in.nextLine().trim();
+        String name = getCommand();
         logger.info("users want to delete  user : " + name);
         boolean result = book.delete(name);
         if (!result) {
@@ -117,9 +121,9 @@ public class ConsoleUI implements UIInterface {
         }
     }
 
-    private void search() {
+    List<UserInfo> search() {
         System.out.print("please input the phoneNum:");
-        String phoneNum = in.nextLine().trim();
+        String phoneNum = getCommand();
         logger.info("users want to search by   phoneNum : " + phoneNum);
         List<UserInfo> result = book.search(phoneNum);
         if (result.size() == 0) {
@@ -129,9 +133,10 @@ public class ConsoleUI implements UIInterface {
             list(result);
             logger.info("search successfully ,exist " + result.size() + " users");
         }
+        return result;
     }
 
-    private void list(List<UserInfo> list) {
+    void list(List<UserInfo> list) {
         System.out.println("************************************************************************");
         System.out.printf("%-15S %-20S %-30S", "UserName", "|Address ", "|phoneNumber");
         System.out.println();
@@ -145,9 +150,9 @@ public class ConsoleUI implements UIInterface {
         }
     }
 
-    private boolean quit() {
+    boolean quit() {
         System.out.print("confirm exist(Y/N):");
-        String readLine = in.nextLine().toUpperCase();
+        String readLine = getCommand().toUpperCase();
         if (readLine.equals("Y")) {
             logger.info("users  confirm to quit ");
             return true;
@@ -159,7 +164,7 @@ public class ConsoleUI implements UIInterface {
         }
     }
 
-    public boolean checkNumber(String s) {
+    private boolean checkNumber(String s) {
         String phoneNumberPattern = "^[0-9]{3}[-][0-9]{7,8}$";
         Pattern ps = Pattern.compile(phoneNumberPattern);
         Matcher mt = ps.matcher(s.trim());
