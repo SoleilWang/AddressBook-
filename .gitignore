@@ -1,4 +1,6 @@
 addressbook/target/
 addressbook/.settings/
+addressbook/.classpath
+addressbook/.project
 *.log
 
