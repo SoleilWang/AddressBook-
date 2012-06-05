@@ -10,6 +10,12 @@ import org.slf4j.LoggerFactory;
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
 
+/**
+ * Console UI interface
+ * 
+ * @author ewyabdl
+ * 
+ */
 public class ConsoleUI implements UIInterface {
     private static final Logger logger = LoggerFactory.getLogger(ConsoleUI.class);
     private AddressBook book;
@@ -30,9 +36,6 @@ public class ConsoleUI implements UIInterface {
         this.book = new AddressBook();
     }
 
-    /**
-     * 
-     */
     public void start() {
 
         System.out.println("************************************************************************");
@@ -101,6 +104,11 @@ public class ConsoleUI implements UIInterface {
 
     }
 
+    /**
+     * Read a line of input from console
+     * 
+     * @return the input from user
+     */
     public String getCommand() {
         return in.nextLine().trim();
     }

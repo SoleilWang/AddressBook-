@@ -19,6 +19,11 @@ import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
 import com.alex.wang.addressbook.exception.AddressBookException;
 
+/**
+ * 
+ * @author ewyabdl
+ * 
+ */
 public class XmlPersistence implements PersistenceInterface {
     private static final Logger logger = LoggerFactory.getLogger(XmlPersistence.class);
     private static final String XMLFILENAME = "book.xml";

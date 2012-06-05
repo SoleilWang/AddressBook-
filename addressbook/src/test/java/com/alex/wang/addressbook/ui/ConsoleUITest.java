@@ -63,18 +63,17 @@ public class ConsoleUITest {
         verify(uiSpy).delete();
         assertEquals("delete operation error", 0, uiSpy.getBook().getUserList().size());
     }
+
     @Test
     public void testdeleteNotExistUser() {
         UserInfo user = new UserInfo("wang", "tianshan", "090-34323234");
         book.add(user);
-        doReturn("D").doReturn("wangLI").doReturn("Q").doReturn("Y").when(uiSpy)
-                .getCommand();
+        doReturn("D").doReturn("wangLI").doReturn("Q").doReturn("Y").when(uiSpy).getCommand();
         uiSpy.start();
         verify(uiSpy).delete();
         assertEquals("add repeat user operation error", 1, uiSpy.getBook().getUserList().size());
 
     }
-
 
     @Test
     public void testSearchByFullNo() {

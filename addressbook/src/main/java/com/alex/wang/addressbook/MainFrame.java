@@ -12,11 +12,24 @@ import com.alex.wang.addressbook.exception.AddressBookException;
 import com.alex.wang.addressbook.persistence.PersistenceInterface;
 import com.alex.wang.addressbook.persistence.XmlPersistence;
 
+/**
+ * entry point class of addressbook program
+ * 
+ * @author ewyabdl
+ * 
+ */
 public class MainFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
+    public MainFrame() {
+
+    }
+
     /**
+     * entry point method
+     * 
      * @param args
+     *            program argument
      * @throws IOException
      */
     public static void main(String[] args) {
