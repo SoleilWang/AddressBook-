@@ -1,16 +1,13 @@
 package com.alex.wang.addressbook.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
-
-import java.io.File;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 import com.alex.wang.addressbook.entity.AddressBook;
 import com.alex.wang.addressbook.entity.UserInfo;
 
@@ -30,13 +27,8 @@ public class ConsoleUITest {
 
     @After
     public void tearDown() throws Exception {
-
         book = null;
         uiSpy = null;
-        File logFile = new File("address.log");
-        if (logFile.exists()) {
-            logFile.delete();
-        }
     }
 
     @Test

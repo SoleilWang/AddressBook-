@@ -1,14 +1,15 @@
 package com.alex.wang.addressbook.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+
+
 
 public class UserInfoTest {
 
@@ -22,10 +23,6 @@ public class UserInfoTest {
     @After
     public void tearDown() throws Exception {
         user = null;
-        File logFile = new File("address.log");
-        if (logFile.exists()) {
-            logFile.delete();
-        }
     }
 
     @Test

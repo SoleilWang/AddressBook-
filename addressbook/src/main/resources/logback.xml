@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <substitutionProperty name="log.base" value="../address" />
-    <jmxConfigurator />
-    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <Encoding>UTF-8</Encoding>
-        <File>${log.base}.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log.base}.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
-        </rollingPolicy>
-          <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>2MB</MaxFileSize>
-        </triggeringPolicy>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d %-5p [%c] %m%n</pattern>
-        </layout>
-    </appender>
-    <root>
-        <level value="INFO" />>
-        <appender-ref ref="logfile" />
-    </root>
+  <substitutionProperty name="log.base" value="address" />
+  <jmxConfigurator />
+  <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <Encoding>UTF-8</Encoding>
+    <File>${log.base}.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <FileNamePattern>${log.base}.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <MaxFileSize>2MB</MaxFileSize>
+    </triggeringPolicy>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d %-5p [%c] %m%n</pattern>
+    </layout>
+  </appender>
+  <root>
+    <level value="INFO" />
+    <appender-ref ref="logfile" />
+  </root>
 </configuration>

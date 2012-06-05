@@ -1,6 +1,6 @@
 package com.alex.wang.addressbook.persistence;
 
-import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import static org.junit.Assert.assertEquals;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -68,10 +69,6 @@ public class XmlPersistenceTest {
         File xmlFile = new File("book.xml");
         if (xmlFile.exists()) {
             xmlFile.delete();
-        }
-        File logFile = new File("address.log");
-        if (logFile.exists()) {
-            logFile.delete();
         }
     }
 
