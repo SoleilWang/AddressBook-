@@ -1,7 +1,7 @@
 package com.alex.wang.addressbook.exception;
 
 /**
- * The Exception class that indicates exception conditions of this program
+ * The AddressBookException class that indicates exception conditions of this program
  * 
  * @author ewyabdl
  * 
